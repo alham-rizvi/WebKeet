@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790274501461,
+      "tag": "0000_create_webkeet_platform",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790277951472,
+      "tag": "0001_webkeet_platform_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790278409867,
+      "tag": "0002_webkeet_catalog_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790278997715,
+      "tag": "0003_webkeet_seed_labs",
+      "breakpoints": true
+    }
+  ]
+}

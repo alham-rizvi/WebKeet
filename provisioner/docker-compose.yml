@@ -1,0 +1,13 @@
+# Run on your Hostinger VPS:  docker compose up -d --build
+services:
+  spawner:
+    build: .
+    restart: unless-stopped
+    ports: ["4000:4000"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      PROVISIONER_TOKEN: ${PROVISIONER_TOKEN}
+      PUBLIC_HOST: ${PUBLIC_HOST}
+      PUBLIC_SCHEME: ${PUBLIC_SCHEME:-http}
+      MAX_INSTANCES: ${MAX_INSTANCES:-10}
