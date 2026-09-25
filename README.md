@@ -16,7 +16,7 @@ Set the Supabase values in `.env` before using pages that read the live catalog 
 
 ## Deploy the web application
 
-The root Dockerfile builds a production Node server. Railway detects it when the repository is imported. Render can deploy from the included `render.yaml` Blueprint. Configure the variables listed in `.env.example` in the platform dashboard; `VITE_` variables are embedded into browser assets during the build and must contain only the Supabase project URL and publishable key.
+The root Dockerfile builds a production Node server for Railway and Render. Vercel uses the included `vercel.json` and Nitro plugin for TanStack Start server routes. Configure the variables listed in `.env.example` in the platform dashboard; `VITE_` variables are embedded into browser assets during the build and must contain only the Supabase project URL and publishable key.
 
 `/healthz` is a lightweight readiness endpoint that does not depend on Supabase. The public homepage and authenticated features do require a configured Supabase project and the SQL migrations in `supabase/migrations`.
 
