@@ -3,9 +3,11 @@ services:
     name: webkeet
     runtime: docker
     plan: starter
-    healthCheckPath: /
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
     envVars:
-      - key: WEBGOAT_PROVISIONER_URL
+      - key: VITE_SUPABASE_URL
         sync: false
-      - key: WEBGOAT_PROVISIONER_TOKEN
+      - key: VITE_SUPABASE_PUBLISHABLE_KEY
         sync: false

@@ -1,42 +1,31 @@
 # WebKeet
 
-WebKeet is a full-stack web security training platform built with TanStack Start, React, Tailwind CSS, and Lovable Cloud. It provisions OWASP WebGoat lessons through a separate container service and tracks verified completion and points.
+WebKeet is a cybersecurity training platform built with TanStack Start, React, Tailwind CSS, and Supabase. It provides hands-on labs, learner progress, and an optional Docker-backed lab provisioner.
 
-## Architecture
+## Develop locally
 
-```text
-Browser → WebKeet (TanStack Start) → Lovable Cloud
-                    │
-                    └── authenticated provisioner API → isolated WebGoat container
-```
-
-The control plane and vulnerable labs must never share a database or private network. The container-capable provisioner enforces one active container per user, 60-minute expiry, CPU/RAM limits, and no outbound internet.
-
-## Development
+Requirements: Node.js 22+ and npm.
 
 ```bash
-bun install
-bun run dev
+cp .env.example .env
+npm ci
+npm run dev
 ```
 
-Email/password and Google authentication are managed by Lovable Cloud. Database migrations are in `drizzle/migrations`.
+Set the Supabase values in `.env` before using pages that read the live catalog or signing in. Never commit `.env` or server secrets.
 
-## WebGoat provisioner contract
+## Deploy the web application
 
-The hosted app runtime cannot launch Docker. Set `WEBGOAT_PROVISIONER_URL` and `WEBGOAT_PROVISIONER_TOKEN` on a separate trusted deployment. Until configured, launch attempts are stored as `failed` with an honest unavailable message.
+The root Dockerfile builds a production Node server. Railway detects it when the repository is imported. Render can deploy from the included `render.yaml` Blueprint. Configure the variables listed in `.env.example` in the platform dashboard; `VITE_` variables are embedded into browser assets during the build and must contain only the Supabase project URL and publishable key.
 
-Expected provisioner operations:
+`/healthz` is a lightweight readiness endpoint that does not depend on Supabase. The public homepage and authenticated features do require a configured Supabase project and the SQL migrations in `supabase/migrations`.
 
-- `POST /instances` — authenticated JSON `{ instanceId, userId, labId, lessonPath, expiresAt }`; returns `{ externalId, accessUrl }`.
-- `DELETE /instances/:externalId` — stops and removes the container.
-- `POST /instances/:externalId/reset` — replaces it with a clean container.
+## Lab provisioner
 
-Run `webgoat/webgoat` with no outbound network, a read-only root filesystem where possible, memory and CPU limits, and a dedicated per-instance network. The reverse proxy must verify the signed-in owner before forwarding traffic.
+The web app and the lab provisioner are separate services. The provisioner creates isolated Docker containers and therefore requires a trusted host with a Docker Engine. Railway and standard Render web services do not expose a host Docker socket for starting sibling lab containers. Deploy `provisioner/` on a Docker-capable VM or an independently managed Docker host, then set `WEBGOAT_PROVISIONER_URL` and `WEBGOAT_PROVISIONER_TOKEN` on the web service. Do not mount the host Docker socket into an untrusted public web service.
 
-## Deployment
-
-Deploy the WebKeet app and database on Lovable. Deploy the Docker provisioner to a container host with Docker access. Render web services cannot start sibling Docker containers on standard plans; use a private VM/container host for the provisioner and keep its token in secret storage.
+See [DEPLOY.md](DEPLOY.md) for platform steps and required configuration.
 
 ## Licensing
 
-WebKeet is MIT licensed. WebGoat remains GPL-2.0 and is run as an external program. See `ATTRIBUTIONS.md` and `third-party/CODETRACK-LICENSE.txt`.
+WebKeet is MIT licensed. Third-party lab images and dependencies retain their respective licenses; see `ATTRIBUTIONS.md` and `third-party/CODETRACK-LICENSE.txt`.
