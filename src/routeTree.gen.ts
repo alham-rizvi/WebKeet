@@ -17,6 +17,7 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as HallOfFameRouteImport } from './routes/hall-of-fame'
+import { Route as HealthzRouteImport } from './routes/healthz'
 import { Route as LearnPathsRouteImport } from './routes/learn-paths'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -64,6 +65,11 @@ const HallOfFameRoute = HallOfFameRouteImport.update({
   path: '/hall-of-fame',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthzRoute = HealthzRouteImport.update({
+  id: '/healthz',
+  path: '/healthz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LearnPathsRoute = LearnPathsRouteImport.update({
   id: '/learn-paths',
   path: '/learn-paths',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/guide': typeof GuideRoute
   '/hall-of-fame': typeof HallOfFameRoute
+  '/healthz': typeof HealthzRoute
   '/learn-paths': typeof LearnPathsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/guide': typeof GuideRoute
   '/hall-of-fame': typeof HallOfFameRoute
+  '/healthz': typeof HealthzRoute
   '/learn-paths': typeof LearnPathsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/guide': typeof GuideRoute
   '/hall-of-fame': typeof HallOfFameRoute
+  '/healthz': typeof HealthzRoute
   '/learn-paths': typeof LearnPathsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/guide'
     | '/hall-of-fame'
+    | '/healthz'
     | '/learn-paths'
     | '/reset-password'
     | '/admin'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/guide'
     | '/hall-of-fame'
+    | '/healthz'
     | '/learn-paths'
     | '/reset-password'
     | '/admin'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/guide'
     | '/hall-of-fame'
+    | '/healthz'
     | '/learn-paths'
     | '/reset-password'
     | '/_authenticated/admin'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GuideRoute: typeof GuideRoute
   HallOfFameRoute: typeof HallOfFameRoute
+  HealthzRoute: typeof HealthzRoute
   LearnPathsRoute: typeof LearnPathsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   LabsSlugRoute: typeof LabsSlugRoute
@@ -274,6 +287,13 @@ declare module '@tanstack/react-router' {
       path: '/hall-of-fame'
       fullPath: '/hall-of-fame'
       preLoaderRoute: typeof HallOfFameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthz': {
+      id: '/healthz'
+      path: '/healthz'
+      fullPath: '/healthz'
+      preLoaderRoute: typeof HealthzRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn-paths': {
@@ -350,6 +370,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GuideRoute: GuideRoute,
   HallOfFameRoute: HallOfFameRoute,
+  HealthzRoute: HealthzRoute,
   LearnPathsRoute: LearnPathsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   LabsSlugRoute: LabsSlugRoute,

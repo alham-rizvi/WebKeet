@@ -1,4 +1,3 @@
-import logoAsset from "@/assets/webkeet-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 type BrandProps = {
@@ -26,7 +25,7 @@ export function BrandMark({ className, imgClassName }: BrandMarkProps) {
       aria-hidden="true"
     >
       <img
-        src={logoAsset.url}
+        src="/favicon.png"
         alt=""
         width={256}
         height={256}

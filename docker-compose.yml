@@ -1,17 +1,16 @@
 services:
   webkeet:
-    build: .
-    ports: ["3000:3000"]
+    build:
+      context: .
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL:-}
+        VITE_SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY:-}
+    ports:
+      - "3000:3000"
     environment:
+      PORT: "3000"
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY:-}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:-}
       WEBGOAT_PROVISIONER_URL: ${WEBGOAT_PROVISIONER_URL:-}
       WEBGOAT_PROVISIONER_TOKEN: ${WEBGOAT_PROVISIONER_TOKEN:-}
-  webgoat:
-    image: webgoat/webgoat:latest
-    profiles: ["local-lab"]
-    ports: ["8081:8080"]
-    mem_limit: 1g
-    cpus: 1.0
-    networks: [labs]
-networks:
-  labs:
-    internal: true

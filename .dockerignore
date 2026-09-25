@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+node_modules
+.output
+.tanstack
+.wrangler
+coverage
+npm-debug.log*
