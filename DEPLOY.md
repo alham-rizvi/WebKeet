@@ -25,6 +25,10 @@ Set these in the hosting dashboard (or locally in an ignored `.env` file):
 
 `VITE_` values are public: anyone can inspect them in browser downloads. Add only the Supabase project URL and publishable key. Keep service-role keys and provisioner/cron tokens server-side.
 
+## Vercel
+
+The repository includes `vercel.json` with the TanStack Start framework preset, and `vite.config.ts` registers Nitro for Vercel's server functions and route handling. Import the repository with the project root as the Root Directory; leave Build Command and Output Directory on **Auto**. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` for Production, Preview, and Development as needed, then redeploy. Set matching server-side Supabase variables if runtime code uses them. Configure the production and preview origins in Supabase Auth redirect settings.
+
 ## Railway
 
 1. Create a Railway project and deploy this repository from GitHub.
