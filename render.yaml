@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: webkeet
+    runtime: docker
+    plan: starter
+    healthCheckPath: /
+    envVars:
+      - key: WEBGOAT_PROVISIONER_URL
+        sync: false
+      - key: WEBGOAT_PROVISIONER_TOKEN
+        sync: false

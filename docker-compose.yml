@@ -1,0 +1,17 @@
+services:
+  webkeet:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      WEBGOAT_PROVISIONER_URL: ${WEBGOAT_PROVISIONER_URL:-}
+      WEBGOAT_PROVISIONER_TOKEN: ${WEBGOAT_PROVISIONER_TOKEN:-}
+  webgoat:
+    image: webgoat/webgoat:latest
+    profiles: ["local-lab"]
+    ports: ["8081:8080"]
+    mem_limit: 1g
+    cpus: 1.0
+    networks: [labs]
+networks:
+  labs:
+    internal: true
